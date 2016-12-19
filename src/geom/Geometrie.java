@@ -1,5 +1,7 @@
 package geom;
 
+import core.CanvasProperties;
+
 import java.awt.Color;
 
 /**
@@ -7,14 +9,14 @@ import java.awt.Color;
  * @author anthony
  *
  */
-public class Geometrie 
-{
+public class Geometrie {
 	protected double x ;
 	protected double y ;
 	protected double z ;
 	protected Type geotype = Type.UNDEFINED;
-	protected Color stroke_color ;
-	protected Color fill_color ;
+	protected Color color;
+	protected Color fillColor;
+	protected Color textColor ;
 	protected boolean fill ;
 	
 	public static enum Type 
@@ -23,7 +25,8 @@ public class Geometrie
 		POINT,
 		CIRCLE,
 		LINE,
-		ELLIPSE
+		ELLIPSE,
+		TEXT
 	}
 	
 	/**
@@ -71,6 +74,9 @@ public class Geometrie
 		this.y = y ;
 		this.z = z ;
 		this.geotype = type ;
+		this.fillColor = CanvasProperties.FILL_COLOR ;
+		this.fill = CanvasProperties.FILL;
+		this.color = CanvasProperties.STROKE_COLOR ;
 	}
 	
 	/**
@@ -111,48 +117,70 @@ public class Geometrie
 	 * 
 	 * @return
 	 */
-	public Color getStroke_color() {
-		return stroke_color;
+	public Color getColor()
+	{
+		return color;
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public Color getFill_color() {
-		return fill_color;
+	public Color getFillColor()
+	{
+		return fillColor;
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean isFill() {
+	public boolean isFill()
+	{
 		return fill;
 	}
 
 	/**
 	 * 
-	 * @param stroke_color
+	 * @param color
 	 */
-	public void setStroke_color(Color stroke_color) {
-		this.stroke_color = stroke_color;
+	public void setColor(Color color)
+	{
+		this.color = color;
 	}
 
 	/**
 	 * 
 	 * @param fill_color
 	 */
-	public void setFill_color(Color fill_color) {
-		this.fill_color = fill_color;
+	public void setFillColor(Color fill_color)
+	{
+		this.fillColor = fill_color;
 	}
 
 	/**
 	 * 
 	 * @param fill
 	 */
-	public void setFill(boolean fill) {
+	public void setFill(boolean fill)
+	{
 		this.fill = fill;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	/**
+	 *
+	 * @param textColor
+	 */
+	public void setTextColor(Color textColor) {
+		this.textColor = textColor;
 	}
 	
 	

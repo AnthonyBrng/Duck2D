@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import core.Environment.ShapeOrigin;
-import geom.Circle;
-import geom.Ellipse;
-import geom.Geometrie;
-import geom.Line;
-import geom.Point;
+import geom.*;
 
 /**
  * 
@@ -52,6 +48,8 @@ public class Canvas extends JPanel
 				drawLine(g, geo);
 			else if(geo instanceof Ellipse)
 				drawEllipse(g, geo);
+			else if(geo instanceof Text)
+				drawText(g, geo);
 		}
 		
 	}
@@ -73,8 +71,9 @@ public class Canvas extends JPanel
 	public void add(Geometrie geo)
 	{
 		geo.setFill(CanvasProperties.FILL);
-		geo.setFill_color(CanvasProperties.FILL_COLOR);
-		geo.setStroke_color(CanvasProperties.STROKE_COLOR);
+		geo.setFillColor(CanvasProperties.FILL_COLOR);
+		geo.setColor(CanvasProperties.STROKE_COLOR);
+		geo.setTextColor(CanvasProperties.TEXT_COLOR);
 		geos.add(geo) ;
 	}
 	
@@ -103,14 +102,14 @@ public class Canvas extends JPanel
 	 */
 	private void drawPoint(Graphics g, Geometrie geo)
 	{
-		Point point = null;
+		Point point;
 		
 		if(geo instanceof Point)
 			point = (Point) geo ;
 		else
 			throw new WrongMethodTypeException("Wrong Method was called Canvas.drawPoint() for Type " + geo.getType() + "!") ;
 		
-		g.setColor(point.getFill_color());
+		g.setColor(point.getFillColor());
 		g.fillOval((int)point.x(), (int)point.y(), (int)point.size()*2, (int)point.size()*2);
 		
 	}
@@ -124,7 +123,7 @@ public class Canvas extends JPanel
 	 */
 	private void drawCircle(Graphics g, Geometrie geo)
 	{
-		Circle circle = null;
+		Circle circle;
 		
 		/*
 		 * Error-Handling
@@ -146,12 +145,12 @@ public class Canvas extends JPanel
 		 */
 		if(circle.isFill())
 		{
-			g.setColor(geo.getFill_color());
+			g.setColor(geo.getFillColor());
 			g.fillOval(pos.width, pos.height, (int)circle.radius()*2, (int)circle.radius()*2);
 		}
 		else
 		{
-			g.setColor(circle.getStroke_color());
+			g.setColor(circle.getColor());
 			g.drawOval(pos.width, pos.height, (int)circle.radius()*2, (int)circle.radius()*2);
 		}
 		
@@ -166,7 +165,7 @@ public class Canvas extends JPanel
 	 */
 	private void drawEllipse(Graphics g, Geometrie geo)
 	{
-		Ellipse ellipse = null;
+		Ellipse ellipse;
 		
 		/*
 		 * Error-Handling
@@ -188,12 +187,12 @@ public class Canvas extends JPanel
 		 */
 		if(ellipse.isFill())
 		{
-			g.setColor(geo.getFill_color());
+			g.setColor(geo.getFillColor());
 			g.fillOval(pos.width, pos.height, (int)ellipse.getWidth(), (int)ellipse.getHeight());
 		}
 		else
 		{
-			g.setColor(ellipse.getStroke_color());
+			g.setColor(ellipse.getColor());
 			g.drawOval(pos.width, pos.height, (int)ellipse.getWidth(), (int)ellipse.getHeight());
 		}
 		
@@ -208,7 +207,7 @@ public class Canvas extends JPanel
 	 */
 	private void drawLine(Graphics g, Geometrie geo)
 	{
-		Line line = null;
+		Line line;
 		
 		/*
 		 * Error-Handling
@@ -221,9 +220,32 @@ public class Canvas extends JPanel
 		g.setColor(CanvasProperties.STROKE_COLOR);
 		g.drawLine((int)line.x(), (int)line.y(), (int)line.x_dest(), (int)line.y_dest());
 	}
-	
-	
-	
+
+
+	/**
+	 *
+	 * @param g
+	 * @param geo
+	 */
+	private void drawText(Graphics g, Geometrie geo)
+	{
+		Text text;
+
+		/*
+		 * Error-Handling
+		 */
+		if(geo instanceof Text)
+			text = (Text) geo ;
+		else
+			throw new WrongMethodTypeException("Wrong Method was called Canvas.drawText() for Type " + geo.getType() + "!") ;
+
+		g.setColor(text.getTextColor());
+		g.drawChars(text.getChars(),0, text.getChars ().length, (int)text.x(), (int)text.y());
+	}
+
+
+
+
 	/**
 	 * 
 	 * @param x
@@ -240,8 +262,8 @@ public class Canvas extends JPanel
 			return result ;
 		else if (CanvasProperties.SHAPE_ORIGIN == ShapeOrigin.CENTER)
 			return new Dimension(x-width/2, y-height/2) ; 
-		
-		
+
+
 		return result ;
 		
 	}

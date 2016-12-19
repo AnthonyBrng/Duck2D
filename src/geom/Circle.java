@@ -1,5 +1,7 @@
 package geom;
 
+import core.*;
+
 /**
  * Circle-Object
  * @author anthony

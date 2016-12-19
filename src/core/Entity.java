@@ -90,10 +90,7 @@ public abstract class Entity
 	{
 		this.env.stroke(r, g, b);
 	}
-	
-	
-	
-	
+
 	
 	/**
 	 * Translated the origin of the underlying coordinate system to a new
@@ -161,8 +158,7 @@ public abstract class Entity
 	/****************
 	 * Shapes 
 	 */
-	
-	
+
 	/**
 	 * Draws a point with size 1 on the underlying canvas.
 	 * @param x X-Location of the point (depends on origin-offset)
@@ -212,7 +208,6 @@ public abstract class Entity
 	 * @param x X-Location of the point (depends on origin-offset)
 	 * @param y Y-Location of the point (depends on origin-offset)
 	 * @param size width and height of the surrounding rectangle.
-	 * @param radius radius of the Circle.
 	 */
 	public void ellipse(double x, double y, double size)
 	{
@@ -225,7 +220,7 @@ public abstract class Entity
 	 * @param y Y-Location of the point (depends on origin-offset)
 	 * @param width width of the surrounding rectangle.
 	 * @param height height of the surrounding rectangle.
-	 * @param radius radius of the Circle.
+	 * TODO widht an height doc
 	 */
 	public void ellipse(double x, double y, double width, double height)
 	{
@@ -242,6 +237,17 @@ public abstract class Entity
 	public void line(double x, double y, double x_dest, double y_dest)
 	{
 		this.env.line(x, y, x_dest, y_dest);
+	}
+
+	/**
+	 *	Draws a String on the canvas
+	 * @param text String to be drawn.
+	 * @param x X-Location of the text-baseline.
+	 * @param y Y-Location of the text-baseline.
+	 */
+	public void text(String text, double x, double y)
+	{
+		this.env.text(text, x, y);
 	}
 	
 	

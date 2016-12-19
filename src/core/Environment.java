@@ -3,10 +3,7 @@ package core;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import geom.Circle;
-import geom.Ellipse;
-import geom.Line;
-import geom.Point;
+import geom.*;
 import stdio.Stdio;
 
 /**
@@ -103,7 +100,6 @@ public abstract class Environment
 			waitingPeriod();
 			this.canvas.resetGeos();
 			CanvasProperties.resetColors();
-			
 		}
 		
 	}
@@ -138,7 +134,7 @@ public abstract class Environment
 	 */
 	public void size(int width, int height)
 	{
-		if(this.window.WIDTH < width || this.window.HEIGHT < height)
+		if(WindowProperties.WIDTH < width || WindowProperties.HEIGHT < height)
 		{
 			WindowProperties.WIDTH = width ;
 			WindowProperties.HEIGHT = height ;
@@ -230,8 +226,27 @@ public abstract class Environment
 	{
 		CanvasProperties.STROKE_COLOR = new Color(r, g, b) ;
 	}
-	
-	
+
+	/**
+	 *
+	 * @param c
+	 */
+	public void textColor(int c)
+	{
+		this.textColor(c,c,c);
+	}
+
+
+	/**
+	 * Sets the text color of Text objects.
+	 * @param r Red value between 0 and 255.
+	 * @param g Green value between 0 and 255.
+	 * @param b Blue value between 0 and 255.
+	 */
+	public void textColor(int r, int g, int b)
+	{
+		CanvasProperties.TEXT_COLOR = new Color(r,g,b) ;
+	}
 	
 	
 	
@@ -376,7 +391,6 @@ public abstract class Environment
 	 * @param x X-Location of the point (depends on origin-offset)
 	 * @param y Y-Location of the point (depends on origin-offset)
 	 * @param size width and height of the surrounding rectangle.
-	 * @param radius radius of the Circle.
 	 */
 	public void ellipse(double x, double y, double size)
 	{
@@ -391,7 +405,7 @@ public abstract class Environment
 	 * @param y Y-Location of the point (depends on origin-offset)
 	 * @param width width of the surrounding rectangle.
 	 * @param height height of the surrounding rectangle.
-	 * @param radius radius of the Circle.
+	 * TODO widht and height doc
 	 */
 	public void ellipse(double x, double y, double width, double height)
 	{
@@ -401,7 +415,7 @@ public abstract class Environment
 	}
 	
 	/**
-	 * 
+	 * Draws a line
 	 * @param x X-Location of the point (depends on origin-offset)
 	 * @param y Y-Location of the point (depends on origin-offset)
 	 * @param x_dest Destination X-Location of the point (depends on origin-offset)
@@ -416,7 +430,20 @@ public abstract class Environment
 		
 		this.canvas.add(new Line(x, y, x_dest, y_dest)) ;
 	}
-	
+
+	/**
+	 * Draws a String on the canvas
+	 * @param text String to be drawn.
+	 * @param x X-Location of the text-baseline.
+	 * @param y Y-Location of the text-baseline.
+	 */
+	public void text(String text, double x, double y)
+	{
+		x = x + ORIGIN.getWidth() ;
+		y = y + ORIGIN.getHeight() ;
+
+		this.canvas.add(new Text(text, x, y));
+	}
 	
 	
 	/***************************

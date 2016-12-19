@@ -1,5 +1,6 @@
 package demo;
 import core.Environment;
+import demo.demo_objects.Star;
 
 /**
  * Demo-Class.
