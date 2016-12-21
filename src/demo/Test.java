@@ -1,6 +1,7 @@
 package demo;
 
 import core.Environment;
+import stdio.Stdio;
 
 public class Test extends Environment
 {
@@ -25,11 +26,7 @@ public class Test extends Environment
 	@Override
 	public void draw() 
 	{
-		textColor(200,0,0);
-		text("Hello World", 50, 50);
-
-		textColor(0, 200, 0);
-		text("Hello World", 0, 0);
+		Stdio.print(Stdio.randomDbl(1,2));
 
 	}
 	

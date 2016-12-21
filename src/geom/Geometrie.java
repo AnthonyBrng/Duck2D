@@ -26,7 +26,8 @@ public class Geometrie {
 		CIRCLE,
 		LINE,
 		ELLIPSE,
-		TEXT
+		TEXT,
+		RECTANGLE
 	}
 	
 	/**

@@ -38,19 +38,71 @@ public class Stdio
 	
 	
 	/**
-	 * 
-	 * @return
+	 * Generates a random integer number in a specific range.
+	 * @param lower_bound  lowest possible number.
+	 * @param upper_bound  highest possible number
+	 * @return randomInt number between lower_bound and upper_bound.
 	 */
-	public static int random(int lower_bound, int upper_bound)
+	public static int randomInt(int lower_bound, int upper_bound)
 	{
 		Random r = new Random();
-		
-		int result = 0 ;
-		if(lower_bound < 0)
-			result = lower_bound + r.nextInt(upper_bound + (-1)*lower_bound + 1) ;
-		else
-			result = lower_bound + r.nextInt(upper_bound + (-1)*lower_bound + 1) ;
+		int result ;
+		result = lower_bound + r.nextInt(upper_bound + (-1)*lower_bound + 1) ;
 		return result ;
+	}
+
+
+	/**
+	 * Generates a random double number between 0 (incl.) and 1(excl.)
+	 * @return generated random number
+	 */
+	public static double randomDbl()
+	{
+		return randomDbl(1) ;
+	}
+
+	/**
+	 * Generates a randomInt double number between 0 (incl.) and a upper bound(excl.)
+	 * @param upper_bound upper bound of the result range.
+	 * @return generated random number
+	 */
+	public static double randomDbl(double upper_bound)
+	{
+		return Math.random() * upper_bound ;
+	}
+
+	/**
+	 * Generates a randomInt integer number in a specific range.
+	 * @param lower_bound  lowest possible number.
+	 * @param upper_bound  highest possible number
+	 * @return generated random double number.
+	 */
+	public static double randomDbl(double lower_bound, double upper_bound)
+	{
+		double result ;
+
+		double dist = Math.abs(lower_bound - upper_bound ) ;
+		result = lower_bound + randomDbl(dist);
+		return result ;
+	}
+
+
+	/**
+	 * Alias-method for System.out.println().
+	 * @param text String to print.
+	 */
+	public static void print(String text)
+	{
+		System.out.println(text);
+	}
+
+	/**
+	 * Alias-method for System.out.println().
+	 * @param obj Object to print.
+	 */
+	public static void print(Object obj)
+	{
+		System.out.println(obj.toString());
 	}
 	
 }
