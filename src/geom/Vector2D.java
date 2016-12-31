@@ -87,7 +87,7 @@ public class Vector2D
 
 
     /**
-     * @return Creates a random Vector
+     * @return Creates a random Vector, with values between -1 and 1
      */
     public static Vector2D random()
     {

@@ -1,8 +1,5 @@
 package core;
 
-import geom.*;
-
-import java.awt.*;
 
 public abstract class Entity
 {
@@ -36,11 +33,54 @@ public abstract class Entity
     }
 
     /**
-     *
+     * Sets the flag indicating an object to fill to true.
      */
     public void fill()
     {
         this.env.fill();
+    }
+
+    /**
+     * Sets the fill-color for the next drawing shape that should be filled
+     * with a color. By calling this method the next shape gets filled
+     * (if possible).
+     *
+     * @param c one colorvalue for red and green and blue
+     */
+    public void fill(int c)
+    {
+        this.env.fill(c);
+    }
+
+    /**
+     * Sets the fill-color for the next drawing shape that should be filled
+     * with a color. By calling this method the next shape gets filled
+     * (if possible).
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void fill(int r, int g, int b)
+    {
+        this.env.fill(r,g,b);
+    }
+
+    /**
+     * Deactivates the filling of the next shape.
+     */
+    public void noFill()
+    {
+        this.env.noFill();
+    }
+
+
+    /**
+     * Sets the flag indicating an object to fill to true.
+     */
+    public void fillAll()
+    {
+        this.env.fillAll();
     }
 
     /**
@@ -50,9 +90,9 @@ public abstract class Entity
      *
      * @param c one colorvalue for red and green and blue
      */
-    public void fill(int c)
+    public void fillAll(int c)
     {
-        this.env.fill(c);
+        this.env.fillAll(c);
     }
 
     /**
@@ -64,17 +104,17 @@ public abstract class Entity
      * @param g Green value between 0 and 255.
      * @param b Blue value between 0 and 255.
      */
-    public void fill(int r, int g, int b)
+    public void fillAll(int r, int g, int b)
     {
-        this.env.fill(r, g, b);
+        this.env.fillAll(r,g,b);
     }
 
     /**
      * Deactivates the filling of shapes.
      */
-    public void noFill()
+    public void noFillAll()
     {
-        this.env.noFill();
+        this.env.noFillAll();
     }
 
     /**
@@ -88,7 +128,7 @@ public abstract class Entity
     }
 
     /**
-     * Sets the drawing/line color of shapes.
+     * Sets the drawing/line color of the next shapes.
      *
      * @param r Red value between 0 and 255.
      * @param g Green value between 0 and 255.
@@ -96,20 +136,46 @@ public abstract class Entity
      */
     public void stroke(int r, int g, int b)
     {
-        this.env.stroke(r, g, b);
+        this.env.stroke(r,g,b);
     }
 
     /**
+     * Sets the drawing/line color of all following shapes.
+     *
+     * @param c colorvalue for red and green and blue
+     */
+    public void strokeAll(int c)
+    {
+        this.env.strokeAll(c);
+    }
+
+    /**
+     * Sets the drawing/line color of all following shapes.
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void strokeAll(int r, int g, int b)
+    {
+        this.env.strokeAll(r,g,b);
+    }
+
+
+
+    /**
+     * Sets the text color of the next text obeject.
+     *
      * @param c
      */
     public void textColor(int c)
     {
-        this.env.textColor(c, c, c);
+        this.env.textColor(c);
     }
 
 
     /**
-     * Sets the text color of Text objects.
+     * Sets the text color of the next text obeject.
      *
      * @param r Red value between 0 and 255.
      * @param g Green value between 0 and 255.
@@ -117,7 +183,40 @@ public abstract class Entity
      */
     public void textColor(int r, int g, int b)
     {
-        this.env.textColor(r, g, b);
+        this.env.textColor(r,g,b);
+    }
+
+
+    /**
+     * Sets the text color of all text obeject.
+     *
+     * @param c
+     */
+    public void textColorAll(int c)
+    {
+        this.env.textColorAll(c);
+    }
+
+
+    /**
+     * Sets the text color of all text obeject.
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void textColorAll(int r, int g, int b)
+    {
+        this.env.textColorAll(r,g,b);
+    }
+
+
+    /**
+     * Rotates the next shape by an angle in degrees.
+     */
+    public void rotate(double angle)
+    {
+       this.env.rotate(angle);
     }
 
     /**

@@ -5,7 +5,7 @@ import java.awt.Color;
 import core.Environment.ShapeOrigin;
 
 /**
- * Package-private
+ *
  * @author anthony
  *
  */
@@ -18,7 +18,12 @@ public class CanvasProperties
 	static ShapeOrigin SHAPE_ORIGIN = ShapeOrigin.CENTER ;
 	static Color BACKGROUND_COLOR = Color.WHITE;
 
-	public static boolean FILL = false ;
+
+	/*
+	 * This properties are for all shapes, if no
+	 * specific object propertie is set
+	 */
+	public static Boolean FILL = false ;
 	public static Color FILL_COLOR = new Color(70,70,70) ;
 	public static Color STROKE_COLOR = new Color(70,70,70) ;
 	public static Color TEXT_COLOR = Color.BLACK ;

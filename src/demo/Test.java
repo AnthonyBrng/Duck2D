@@ -14,8 +14,9 @@ public class Test extends Environment
 	@Override
 	public void settings() 
 	{
-		size(800, 800);	
-		origin(width()/2, height()/2);
+		size(800, 800);
+		background(0);
+
 		
 
 	}
@@ -26,7 +27,10 @@ public class Test extends Environment
 	@Override
 	public void draw() 
 	{
-		Stdio.print(Stdio.randomDbl(1,2));
+
+		stroke(255);
+		circle(200,200, 50);
+
 
 	}
 	

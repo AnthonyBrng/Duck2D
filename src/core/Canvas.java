@@ -1,7 +1,7 @@
 package core;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.lang.invoke.WrongMethodTypeException;
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import core.Environment.ShapeOrigin;
 import geom.*;
+import geom.Point;
+import geom.Rectangle;
 import org.w3c.dom.css.Rect;
 import stdio.Stdio;
 
@@ -59,7 +61,7 @@ public class Canvas extends JPanel
     }
 
     /**
-     *
+     * Applies the settings made in CanvasProperties to teh Canvas.
      */
     public void applySettings()
     {
@@ -75,12 +77,41 @@ public class Canvas extends JPanel
      */
     public void add(Geometrie geo)
     {
-        geo.setFill(CanvasProperties.FILL);
-        geo.setFillColor(CanvasProperties.FILL_COLOR);
-        geo.setColor(CanvasProperties.STROKE_COLOR);
-        geo.setTextColor(CanvasProperties.TEXT_COLOR);
+        geo.setFill(chooseBool(ObjectProperties.FILL, CanvasProperties.FILL));
+        geo.setFillColor(chooseColor(ObjectProperties.FILL_COLOR, CanvasProperties.FILL_COLOR));
+        geo.setColor(chooseColor(ObjectProperties.STROKE_COLOR, CanvasProperties.STROKE_COLOR));
+        geo.setTextColor(chooseColor(ObjectProperties.TEXT_COLOR, CanvasProperties.TEXT_COLOR));
+
+        geo.setRoatationAngle(ObjectProperties.ROTATION_ANGLE);
+
         geos.add(geo);
+
+        ObjectProperties.reset();
+
     }
+
+
+    /**
+     * @param prior First color to check for null.
+     * @param alternative Alternative color to return of prior is null.
+     * @return Returns a prior Color if it is not null, otherwise the alternative color.
+     */
+    private Color chooseColor(Color prior, Color alternative)
+    {
+        return (prior == null ) ? alternative : prior ;
+    }
+
+
+    /**
+     * @param prior First bool to check for null.
+     * @param alternative Alternative bool to return of prior is null.
+     * @return Returns a prior bool if it is not null, otherwise the alternative bool.
+     */
+    private boolean chooseBool(Boolean prior, Boolean alternative)
+    {
+        return (prior == null ) ? alternative : prior ;
+    }
+
 
 
     /**
@@ -251,11 +282,13 @@ public class Canvas extends JPanel
 
     /**
      *
-     * @param g
+     * @param g_
      * @param geo
      */
-    public void drawRectangle(Graphics g, Geometrie geo)
+    public void drawRectangle(Graphics g_, Geometrie geo)
     {
+        Graphics2D g = (Graphics2D) g_ ;
+
         Rectangle rect;
         /*
 		 * Error-Handling
@@ -268,6 +301,11 @@ public class Canvas extends JPanel
 
         Dimension pos = getCenteredPos((int) rect.x(), (int) rect.y(), (int) rect.width(), (int) rect.height());
 
+
+
+        AffineTransform old = g.getTransform();
+        g.rotate(Math.toRadians(rect.getRotationAngle()), rect.x(), rect.y());
+
         if(rect.isFill())
         {
             g.setColor(rect.getFillColor());
@@ -277,6 +315,8 @@ public class Canvas extends JPanel
             g.setColor(rect.getColor());
             g.drawRect( pos.width, pos.height, (int)rect.width(), (int)rect.height());
         }
+
+        g.setTransform(old);
 
     }
 

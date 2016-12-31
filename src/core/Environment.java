@@ -168,10 +168,56 @@ public abstract class Environment
     }
 
 
+    /**
+     * Sets the flag indicating an object to fill to true.
+     */
     public void fill()
     {
-        Color c = CanvasProperties.STROKE_COLOR;
-        this.fill(c.getRed(), c.getGreen(), c.getBlue());
+        ObjectProperties.FILL = true ;
+    }
+
+    /**
+     * Sets the fill-color for the next drawing shape that should be filled
+     * with a color. By calling this method the next shape gets filled
+     * (if possible).
+     *
+     * @param c one colorvalue for red and green and blue
+     */
+    public void fill(int c)
+    {
+        this.fill(c, c, c);
+    }
+
+    /**
+     * Sets the fill-color for the next drawing shape that should be filled
+     * with a color. By calling this method the next shape gets filled
+     * (if possible).
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void fill(int r, int g, int b)
+    {
+        ObjectProperties.FILL_COLOR = new Color(r, g, b);
+        ObjectProperties.FILL = true;
+    }
+
+    /**
+     * Deactivates the filling of the next shape.
+     */
+    public void noFill()
+    {
+        ObjectProperties.FILL = false;
+    }
+
+
+    /**
+     * Sets the flag indicating an object to fill to true.
+     */
+    public void fillAll()
+    {
+        CanvasProperties.FILL = true ;
     }
 
     /**
@@ -181,9 +227,9 @@ public abstract class Environment
      *
      * @param c one colorvalue for red and green and blue
      */
-    public void fill(int c)
+    public void fillAll(int c)
     {
-        this.fill(c, c, c);
+        this.fillAll(c, c, c);
     }
 
     /**
@@ -195,7 +241,7 @@ public abstract class Environment
      * @param g Green value between 0 and 255.
      * @param b Blue value between 0 and 255.
      */
-    public void fill(int r, int g, int b)
+    public void fillAll(int r, int g, int b)
     {
         CanvasProperties.FILL_COLOR = new Color(r, g, b);
         CanvasProperties.FILL = true;
@@ -204,7 +250,7 @@ public abstract class Environment
     /**
      * Deactivates the filling of shapes.
      */
-    public void noFill()
+    public void noFillAll()
     {
         CanvasProperties.FILL = false;
     }
@@ -220,7 +266,7 @@ public abstract class Environment
     }
 
     /**
-     * Sets the drawing/line color of shapes.
+     * Sets the drawing/line color of the next shapes.
      *
      * @param r Red value between 0 and 255.
      * @param g Green value between 0 and 255.
@@ -228,10 +274,36 @@ public abstract class Environment
      */
     public void stroke(int r, int g, int b)
     {
-        CanvasProperties.STROKE_COLOR = new Color(r, g, b);
+        ObjectProperties.STROKE_COLOR = new Color(r, g, b);
     }
 
     /**
+     * Sets the drawing/line color of all following shapes.
+     *
+     * @param c colorvalue for red and green and blue
+     */
+    public void strokeAll(int c)
+    {
+        this.strokeAll(c, c, c);
+    }
+
+    /**
+     * Sets the drawing/line color of all following shapes.
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void strokeAll(int r, int g, int b)
+    {
+        CanvasProperties.STROKE_COLOR = new Color(r, g, b);
+    }
+
+
+
+    /**
+     * Sets the text color of the next text obeject.
+     *
      * @param c
      */
     public void textColor(int c)
@@ -241,7 +313,7 @@ public abstract class Environment
 
 
     /**
-     * Sets the text color of Text objects.
+     * Sets the text color of the next text obeject.
      *
      * @param r Red value between 0 and 255.
      * @param g Green value between 0 and 255.
@@ -249,7 +321,40 @@ public abstract class Environment
      */
     public void textColor(int r, int g, int b)
     {
+        ObjectProperties.TEXT_COLOR = new Color(r, g, b);
+    }
+
+
+    /**
+     * Sets the text color of all text obeject.
+     *
+     * @param c
+     */
+    public void textColorAll(int c)
+    {
+        this.textColorAll(c, c, c);
+    }
+
+
+    /**
+     * Sets the text color of all text obeject.
+     *
+     * @param r Red value between 0 and 255.
+     * @param g Green value between 0 and 255.
+     * @param b Blue value between 0 and 255.
+     */
+    public void textColorAll(int r, int g, int b)
+    {
         CanvasProperties.TEXT_COLOR = new Color(r, g, b);
+    }
+
+
+    /**
+     * Rotates the next shape by an angle in degrees.
+     */
+    public void rotate(double angle)
+    {
+        ObjectProperties.ROTATION_ANGLE = angle ;
     }
 
 

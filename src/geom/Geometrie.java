@@ -18,6 +18,7 @@ public class Geometrie {
 	protected Color fillColor;
 	protected Color textColor ;
 	protected boolean fill ;
+	protected double rotationAngle ;
 	
 	public static enum Type 
 	{
@@ -79,7 +80,9 @@ public class Geometrie {
 		this.fill = CanvasProperties.FILL;
 		this.color = CanvasProperties.STROKE_COLOR ;
 	}
-	
+
+
+
 	/**
 	 * 
 	 * @return  X-Location 
@@ -182,6 +185,26 @@ public class Geometrie {
 	 */
 	public void setTextColor(Color textColor) {
 		this.textColor = textColor;
+	}
+
+
+	/**
+	 *
+	 * @param rotationAngle
+	 */
+	public void setRoatationAngle(double rotationAngle)
+	{
+		this.rotationAngle = rotationAngle ;
+	}
+
+
+	/**
+	 *
+	 * @return
+	 */
+	public double getRotationAngle()
+	{
+		return this.rotationAngle ;
 	}
 	
 	
