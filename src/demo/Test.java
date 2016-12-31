@@ -28,8 +28,17 @@ public class Test extends Environment
 	public void draw() 
 	{
 
-		stroke(255);
-		circle(200,200, 50);
+		strokeAll(255);
+		rotate(45) ;
+		rect(200,200, 50,300);
+
+
+		rect(400,200, 50,300);
+
+		rotate(45);
+		ellipse(200,30,300,10);
+
+
 
 
 	}

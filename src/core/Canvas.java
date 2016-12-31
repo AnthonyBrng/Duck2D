@@ -39,8 +39,21 @@ public class Canvas extends JPanel
     {
         super.paintComponent(g);
 
+
+        Graphics2D g2d = (Graphics2D) g ;
+
+        AffineTransform old = g2d.getTransform();
+
         for(Geometrie geo : geos)
         {
+
+            /*
+                Rotation for all objects
+            */
+            old = g2d.getTransform();
+            g2d.rotate(Math.toRadians(geo.getRotationAngle()), geo.x(), geo.y());
+
+
             if(geo instanceof Point)
                 drawPoint(g, geo);
             else if(geo instanceof Circle)
@@ -53,6 +66,9 @@ public class Canvas extends JPanel
                 drawText(g, geo);
             else if(geo instanceof Rectangle)
                 drawRectangle(g, geo);
+
+
+            g2d.setTransform(old);
 
         }
 
@@ -300,10 +316,6 @@ public class Canvas extends JPanel
         Dimension pos = getCenteredPos((int) rect.x(), (int) rect.y(), (int) rect.width(), (int) rect.height());
 
 
-
-        AffineTransform old = g.getTransform();
-        g.rotate(Math.toRadians(rect.getRotationAngle()), rect.x(), rect.y());
-
         if(rect.isFill())
         {
             g.setColor(rect.getFillColor());
@@ -314,7 +326,7 @@ public class Canvas extends JPanel
             g.drawRect( pos.width, pos.height, (int)rect.width(), (int)rect.height());
         }
 
-        g.setTransform(old);
+
 
     }
 
