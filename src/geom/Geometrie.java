@@ -192,7 +192,7 @@ public class Geometrie {
 	 *
 	 * @param rotationAngle
 	 */
-	public void setRoatationAngle(double rotationAngle)
+	public void setRotationAngle(double rotationAngle)
 	{
 		this.rotationAngle = rotationAngle ;
 	}

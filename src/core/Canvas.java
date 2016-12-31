@@ -11,8 +11,6 @@ import core.Environment.ShapeOrigin;
 import geom.*;
 import geom.Point;
 import geom.Rectangle;
-import org.w3c.dom.css.Rect;
-import stdio.Stdio;
 
 /**
  * @author anthony
@@ -82,7 +80,7 @@ public class Canvas extends JPanel
         geo.setColor(chooseColor(ObjectProperties.STROKE_COLOR, CanvasProperties.STROKE_COLOR));
         geo.setTextColor(chooseColor(ObjectProperties.TEXT_COLOR, CanvasProperties.TEXT_COLOR));
 
-        geo.setRoatationAngle(ObjectProperties.ROTATION_ANGLE);
+        geo.setRotationAngle(ObjectProperties.ROTATION_ANGLE);
 
         geos.add(geo);
 
