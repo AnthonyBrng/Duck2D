@@ -18,7 +18,6 @@ public class CanvasProperties
 	static ShapeOrigin SHAPE_ORIGIN = ShapeOrigin.CENTER ;
 	static Color BACKGROUND_COLOR = Color.WHITE;
 
-
 	/*
 	 * This properties are for all shapes, if no
 	 * specific object propertie is set
@@ -26,17 +25,19 @@ public class CanvasProperties
 	public static Boolean FILL = false ;
 	public static Color FILL_COLOR = new Color(70,70,70) ;
 	public static Color STROKE_COLOR = new Color(70,70,70) ;
+	public static float STROKE_WEIGHT = 1 ;
 	public static Color TEXT_COLOR = Color.BLACK ;
-	
+
 	/**
 	 * Resets stroke-, fillcolor and the fill property
 	 * to its defaults.
 	 */
-	static void resetColors() {
+	static void reset() {
 		FILL = false;
 		FILL_COLOR = new Color(70, 70, 70);
 		STROKE_COLOR = new Color(70, 70, 70);
 		TEXT_COLOR = Color.BLACK;
+		STROKE_WEIGHT = 1 ;
 	}
 	
 }

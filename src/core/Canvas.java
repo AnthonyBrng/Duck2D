@@ -46,13 +46,13 @@ public class Canvas extends JPanel
 
         for(Geometrie geo : geos)
         {
-
             /*
                 Rotation for all objects
             */
             old = g2d.getTransform();
             g2d.rotate(Math.toRadians(geo.getRotationAngle()), geo.x(), geo.y());
 
+            g2d.setStroke(new BasicStroke(geo.getStroke_weight()));
 
             if(geo instanceof Point)
                 drawPoint(g, geo);
@@ -66,6 +66,8 @@ public class Canvas extends JPanel
                 drawText(g, geo);
             else if(geo instanceof Rectangle)
                 drawRectangle(g, geo);
+            else if (geo instanceof Polyline)
+                drawPolyline(g, geo);
 
 
             g2d.setTransform(old);
@@ -94,20 +96,19 @@ public class Canvas extends JPanel
         geo.setFill(chooseBool(ObjectProperties.FILL, CanvasProperties.FILL));
         geo.setFillColor(chooseColor(ObjectProperties.FILL_COLOR, CanvasProperties.FILL_COLOR));
         geo.setColor(chooseColor(ObjectProperties.STROKE_COLOR, CanvasProperties.STROKE_COLOR));
+        geo.setStrokeWeight(chooseFloat(ObjectProperties.STROKE_WEIGHT, CanvasProperties.STROKE_WEIGHT));
         geo.setTextColor(chooseColor(ObjectProperties.TEXT_COLOR, CanvasProperties.TEXT_COLOR));
-
         geo.setRotationAngle(ObjectProperties.ROTATION_ANGLE);
 
         geos.add(geo);
 
         ObjectProperties.reset();
-
     }
 
 
     /**
      * @param prior First color to check for null.
-     * @param alternative Alternative color to return of prior is null.
+     * @param alternative Alternative color to return if prior is null.
      * @return Returns a prior Color if it is not null, otherwise the alternative color.
      */
     private Color chooseColor(Color prior, Color alternative)
@@ -118,7 +119,7 @@ public class Canvas extends JPanel
 
     /**
      * @param prior First bool to check for null.
-     * @param alternative Alternative bool to return of prior is null.
+     * @param alternative Alternative bool to return if prior is null.
      * @return Returns a prior bool if it is not null, otherwise the alternative bool.
      */
     private boolean chooseBool(Boolean prior, Boolean alternative)
@@ -126,7 +127,10 @@ public class Canvas extends JPanel
         return (prior == null ) ? alternative : prior ;
     }
 
-
+    private float chooseFloat(float prior, float alternative)
+    {
+        return (prior == 0f) ? alternative : prior ;
+    }
 
     /**
      * Resets the whole geos-ArrayList
@@ -269,8 +273,37 @@ public class Canvas extends JPanel
         else
             throw new WrongMethodTypeException("Wrong Method was called Canvas.drawLine() for Type " + geo.getType() + "!");
 
-        g.setColor(CanvasProperties.STROKE_COLOR);
+        g.setColor(geo.getColor());
         g.drawLine((int) line.x(), (int) line.y(), (int) line.x_dest(), (int) line.y_dest());
+    }
+
+
+    /**
+     *
+     * @param g
+     * @param geo
+     */
+    private void drawPolyline(Graphics g, Geometrie geo)
+    {
+        Polyline polyline;
+
+		/*
+		 * Error-Handling
+		 */
+        if(geo instanceof Polyline)
+            polyline = (Polyline) geo;
+        else
+            throw new WrongMethodTypeException("Wrong Method was called Canvas.drawLine() for Type " + geo.getType() + "!");
+
+        g.setColor(geo.getColor());
+
+        ArrayList<Vector2D> points = polyline.getPoints() ;
+        for(int i=0; i < points.size() - 1; i++)
+            g.drawLine((int) points.get(i).x, (int) points.get(i).y, (int) points.get(i+1).x, (int) points.get(i+1).y);
+
+
+
+
     }
 
 

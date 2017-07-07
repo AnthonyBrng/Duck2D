@@ -19,8 +19,10 @@ public class Geometrie {
 	protected Color textColor ;
 	protected boolean fill ;
 	protected double rotationAngle ;
+
+	protected float stroke_weight;
 	
-	public static enum Type 
+	public enum Type
 	{
 		UNDEFINED,
 		POINT,
@@ -28,7 +30,8 @@ public class Geometrie {
 		LINE,
 		ELLIPSE,
 		TEXT,
-		RECTANGLE
+		RECTANGLE,
+		POLYLINE
 	}
 	
 	/**
@@ -205,6 +208,24 @@ public class Geometrie {
 	public double getRotationAngle()
 	{
 		return this.rotationAngle ;
+	}
+
+	/**
+	 *
+	 * @param stroke_weight
+	 */
+	public void setStrokeWeight(float stroke_weight)
+	{
+		this.stroke_weight = stroke_weight ;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public float getStroke_weight()
+	{
+		return this.stroke_weight ;
 	}
 	
 	

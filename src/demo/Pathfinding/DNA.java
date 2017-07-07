@@ -1,6 +1,5 @@
-package demo.demo_objects;
+package demo.Pathfinding;
 
-import demo.Pathfinding;
 import geom.Vector2D;
 import stdio.Stdio;
 

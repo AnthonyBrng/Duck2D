@@ -5,12 +5,15 @@ import java.awt.LayoutManager;
 import javax.swing.JFrame;
 
 /**
- * Package-private
+ * Defines static properties for the main Window.
  * @author anthony
  *
  */
 class WindowProperties 
 {
+	/*
+		package private
+	 */
 	static int WIDTH = 150 ;
 	static int HEIGHT = 150 ;
 	static boolean RESIZEABLE = false ;

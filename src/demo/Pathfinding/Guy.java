@@ -1,12 +1,8 @@
-package demo.demo_objects;
+package demo.Pathfinding;
 
 import core.Entity;
 import core.Environment;
-import demo.Pathfinding;
 import geom.Vector2D;
-import stdio.Stdio;
-
-import java.lang.annotation.Target;
 
 /**
  * Created by anthony on 19.12.2016.
@@ -22,6 +18,11 @@ public class Guy extends Entity
     public boolean crashed = false;
 
 
+    /**
+     * Constructor
+     *
+     * @param env the environment this Guy lives in
+     */
     public Guy(Environment env)
     {
         super(env);
@@ -32,12 +33,10 @@ public class Guy extends Entity
     }
 
     /**
-     *
+     * calculates the Fitness level of this guy.
      */
     public void calcFitness()
     {
-        //Vector2D diff = new Vector2D(Math.abs(Pathfinding.TARGET.x - this.pos.x), Math.abs(Pathfinding.TARGET.y - this.pos.y));
-        //this.fitness = 1 / diff.length();
         double distance = this.pos.dist(Pathfinding.TARGET);
         this.fitness = map(distance, 0, width(), width(), 0);
 
@@ -51,7 +50,9 @@ public class Guy extends Entity
     }
 
     /**
-     * @return
+     * Getter for the dna property
+     *
+     * @return dna property
      */
     public DNA getDna()
     {
@@ -59,7 +60,9 @@ public class Guy extends Entity
     }
 
     /**
-     * @param dna
+     * Setter for the dna property
+     *
+     * @param dna set a new DNA-Object
      */
     public void setDna(DNA dna)
     {
@@ -68,7 +71,10 @@ public class Guy extends Entity
 
 
     /**
-     * @param force
+     * Applies a force in form of a two dimensional Vector to the
+     * current acceleration property
+     *
+     * @param force Force to be applied
      */
     public void applyForce(Vector2D force)
     {
@@ -76,7 +82,9 @@ public class Guy extends Entity
     }
 
     /**
+     * Show-method of this guy.
      *
+     * Draws a circle on the current position of this guy.
      */
     @Override
     public void show()
@@ -95,6 +103,10 @@ public class Guy extends Entity
     {
         double distance = this.pos.dist(Pathfinding.TARGET);
 
+        /*
+            If this guy is close to the goal
+            set its position to the goal
+         */
         if(distance < 12)
         {
             if(!this.completed)
@@ -106,6 +118,9 @@ public class Guy extends Entity
         }
 
 
+        /*
+            If the guy crashed against an obstacle
+         */
         if(this.pos.x > Pathfinding.OBSTACLE_X+5 && this.pos.x < (Pathfinding.OBSTACLE_X + Pathfinding.OBSTACLE_W)
                 && this.pos.y > Pathfinding.OBSTACLE_Y && this.pos.y < (Pathfinding.OBSTACLE_Y + Pathfinding.OBSTACLE_H)
                 )
@@ -113,13 +128,22 @@ public class Guy extends Entity
             this.crashed = true;
         }
 
+        /*
+            If the guy crashed against the boundings of the window or arena
+         */
         if(this.pos.x > width()-15 || this.pos.x < 0 || this.pos.y > height()-15 || this.pos.y < 0)
         {
             this.crashed = true;
         }
 
+        /*
+            Apply next force
+         */
         this.applyForce(this.dna.getGenes()[Pathfinding.AGE]);
 
+        /*
+            Update the position
+         */
         if(!completed && !crashed)
         {
             this.vel.add(this.acc);

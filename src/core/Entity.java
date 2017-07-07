@@ -1,10 +1,22 @@
 package core;
 
+import geom.Vector2D;
 
+import java.util.List;
+
+/**
+ * Objects that extend this class are able to call Environment methods, like drawing
+ * shapes and stuff like that.
+ */
 public abstract class Entity
 {
     protected Environment env;
 
+    /**
+     * Constructor
+     *
+     * @param env The environment where this entity lives in.
+     */
     public Entity(Environment env)
     {
         this.env = env;
@@ -161,6 +173,26 @@ public abstract class Entity
         this.env.strokeAll(r,g,b);
     }
 
+
+    /**
+     * Sets the weight of the next stroke.
+     *
+     * @param weight new stroke weight value.
+     */
+    public void strokeWeight(float weight)
+    {
+        this.env.strokeWeight(weight);
+    }
+
+    /**
+     * Sets the weight of all following strokes.
+     *
+     * @param weight new stroke weight value.
+     */
+    public void strokeWeightAll(float weight)
+    {
+        this.env.strokeWeightAll(weight);
+    }
 
 
     /**
@@ -330,11 +362,11 @@ public abstract class Entity
      *
      * @param x      X-Location of the point (depends on origin-offset)
      * @param y      Y-Location of the point (depends on origin-offset)
-     * @param radius radius of the Circle.
+     * @param diameter diameter of the Circle.
      */
-    public void circle(double x, double y, int radius)
+    public void circle(double x, double y, int diameter)
     {
-        this.env.circle(x, y, radius);
+        this.env.circle(x, y, diameter);
     }
 
     /**
@@ -372,6 +404,26 @@ public abstract class Entity
     public void line(double x, double y, double x_dest, double y_dest)
     {
         this.env.line(x, y, x_dest, y_dest);
+    }
+
+    /**
+     * Draws a polyline through all points in the given point array.
+     *
+     * @param points    List of Vector2D objects, containing point location for the polyline.
+     */
+    public void polyline(Vector2D[] points)
+    {
+        this.env.polyline(points);
+    }
+
+    /**
+     * Draws a polyline through all points in the given point list.
+     *
+     * @param points    List of Vector2D objects, containing point location for the polyline.
+     */
+    public void polyline(List<Vector2D> points)
+    {
+        this.env.polyline(points);
     }
 
     /**

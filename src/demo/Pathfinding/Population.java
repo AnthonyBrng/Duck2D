@@ -1,4 +1,4 @@
-package demo.demo_objects;
+package demo.Pathfinding;
 
 import core.Entity;
 import core.Environment;

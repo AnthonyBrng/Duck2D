@@ -2,6 +2,8 @@ package core;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.List;
+import geom.Vector2D;
 
 import geom.*;
 import stdio.Stdio;
@@ -18,6 +20,12 @@ public abstract class Environment
     {
         CENTER,
         TOP_LEFT
+    }
+
+    public enum OriginType
+    {
+        STANDARD,
+        CARTESIAN // @TODO muss noch angepasst werden. Aktuell ist (1/2) = (1/-2)
     }
 
     private Window window;
@@ -97,7 +105,7 @@ public abstract class Environment
 
             waitingPeriod();
             this.canvas.resetGeos();
-            CanvasProperties.resetColors();
+            CanvasProperties.reset();
         }
 
     }
@@ -299,7 +307,25 @@ public abstract class Environment
         CanvasProperties.STROKE_COLOR = new Color(r, g, b);
     }
 
+    /**
+     * Sets the weight of the next stroke.
+     *
+     * @param weight new stroke weight value.
+     */
+    public void strokeWeight(float weight)
+    {
+        ObjectProperties.STROKE_WEIGHT = weight ;
+    }
 
+    /**
+     * Sets the weight of all following strokes.
+     *
+     * @param weight new stroke weight value.
+     */
+    public void strokeWeightAll(float weight)
+    {
+        CanvasProperties.STROKE_WEIGHT = weight ;
+    }
 
     /**
      * Sets the text color of the next text obeject.
@@ -370,6 +396,26 @@ public abstract class Environment
         ORIGIN = new Dimension(w, h);
     }
 
+    /**
+     * Translates the origin so that the canvas behaves like
+     * a cartesian coordinate system.
+     *
+     * @param origin Origintype.
+     */
+    public void origin(OriginType origin)
+    {
+        switch (origin) {
+            case STANDARD:
+                this.origin(0,0);
+                break;
+            case CARTESIAN:
+                this.origin(CanvasProperties.WIDTH/2, CanvasProperties.HEIGHT/2);
+                break;
+            default:
+                    System.out.println("OriginType is unknown");
+        }
+
+    }
 
     /**
      * @param origin
@@ -408,7 +454,7 @@ public abstract class Environment
 
 
     /****************
-     * STDIO
+     * STDIO imported functions
      */
 
     /**
@@ -416,7 +462,7 @@ public abstract class Environment
      * For example the value 50 in the range from 0 to 100
      * gets relativly maped to the range from -20 to 20, so the result
      * would be 0. Or in other words. The two diffrent ranges get mapped and
-     * the inputvalue defines the äquivalent value in the other range.
+     * the inputvalue defines the equivalent value in the other range.
      *
      * @param value      input-value which getting maped.
      * @param lower_src  lower bound of the source range
@@ -491,13 +537,13 @@ public abstract class Environment
      *
      * @param x      X-Location of the point (depends on origin-offset)
      * @param y      Y-Location of the point (depends on origin-offset)
-     * @param radius radius of the Circle.
+     * @param diameter diameter of the Circle.
      */
-    public void circle(double x, double y, int radius)
+    public void circle(double x, double y, int diameter)
     {
         x = x + ORIGIN.getWidth();
         y = y + ORIGIN.getHeight();
-        this.canvas.add(new Circle(x, y, radius));
+        this.canvas.add(new Circle(x, y, diameter));
     }
 
 
@@ -588,11 +634,39 @@ public abstract class Environment
     {
         x = x + ORIGIN.getWidth();
         y = y + ORIGIN.getHeight();
-        /*width = width + ORIGIN.getWidth() ;
-        height = height + ORIGIN.getHeight() ;*/
 
         this.canvas.add(new Rectangle(x, y, width, height));
     }
+
+    /**
+     * Draws a polyline through all points in the given point array.
+     *
+     * @param points    List of Vector2D objects, containing point location for the polyline.
+     * @TODO inefficient as fuck
+     */
+    public void polyline(Vector2D[] points)
+    {
+        Vector2D[] transPoints = new Vector2D[points.length] ;
+
+        for(int i=0 ; i<points.length; i++)
+        {
+            transPoints[i] = new Vector2D(points[i].x+ORIGIN.getWidth(), points[i].y+ORIGIN.getHeight()) ;
+        }
+        this.canvas.add(new Polyline<Vector2D>(transPoints));
+    }
+
+    /**
+     * Draws a polyline through all points in the given point list.
+     *
+     * @param points    List of Vector2D objects, containing point location for the polyline.
+     */
+    public void polyline(List<Vector2D> points)
+    {
+        polyline(((Vector2D[])points.toArray()));
+    }
+
+
+
 
     /***************************
      * Abstract-Section

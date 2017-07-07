@@ -1,4 +1,4 @@
-package demo.demo_objects;
+package demo.WarpAntrieb;
 
 import java.util.Random;
 
@@ -39,6 +39,7 @@ public class Star extends Entity
 	/**
 	 * Updates speed and Coordinates.
 	 */
+	@Override
 	public void update()
 	{
 		z -= speed ; 
@@ -86,7 +87,7 @@ public class Star extends Entity
 	
 	/**
 	 * Calculates the warpspeed so that you start slow and
-	 * increase your speed to warpspeed and the comeback to normal
+	 * increase your speed to warpspeed and then comeback to normal
 	 * speed.
 	 */
 	private void calculateWarpspeed()

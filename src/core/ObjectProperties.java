@@ -10,11 +10,10 @@ import java.awt.*;
  */
 public class ObjectProperties
 {
-
-
     public static double ROTATION_ANGLE = 0.0 ;
     public static Color FILL_COLOR = null ;
     public static Color STROKE_COLOR = null ;
+    public static float STROKE_WEIGHT = 0 ;
     public static Color TEXT_COLOR = null;
     public static Boolean FILL = false ;
 
@@ -29,6 +28,8 @@ public class ObjectProperties
         STROKE_COLOR = null;
         TEXT_COLOR = null;
         ROTATION_ANGLE = 0.0 ;
+        STROKE_WEIGHT = 0 ;
+
     }
 
 }

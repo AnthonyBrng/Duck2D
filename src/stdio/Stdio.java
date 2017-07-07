@@ -1,5 +1,6 @@
 package stdio;
 
+import javax.sql.rowset.serial.SerialRef;
 import java.util.Random;
 
 /**
@@ -88,12 +89,26 @@ public class Stdio
 
 
 	/**
-	 * Alias-method for System.out.println().
-	 * @param text String to print.
+	 * Swaps two elements in an array.
+	 *
+	 * @param array 	array where the elements should be swapped
+	 * @param index1	first index.
+	 * @param index2	second index.
 	 */
-	public static void print(String text)
+	public static void swap(Object[] array, int index1, int index2)
 	{
-		System.out.println(text);
+		try
+		{
+			Object tmp = array[index2];
+			array[index2] = array[index1];
+			array[index1] = tmp;
+		}
+		catch(IndexOutOfBoundsException ex)
+		{
+			System.err.println(String.format("Index went out of bounce, while swapping index '%1' and index '%2'. in Stdio.swap()",index1, index2));
+		}
+
+
 	}
 
 	/**
